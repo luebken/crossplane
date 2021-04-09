@@ -250,9 +250,9 @@ provider that can satisfy a `PostgreSQLInstance`. Let's get started!
 kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.1.1
 ```
 
-Wait until all packages become healthy:
+Check packages until they become healthy:
 ```
-kubectl get pkg --watch
+kubectl get pkg
 ```
 
 ### Get AWS Account Keyfile
