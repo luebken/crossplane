@@ -78,6 +78,7 @@ After we have setup a Crossplane runtime we want to [Using Managed Resources fro
 <details><summary>Creating a Clusters</summary>
 
 We just used kind as it is currently our favourite way to install Kubernetes cluster. Other install options like minikube or kubeadm or using an existing cluster that someone can provide. If you don't want to manage controlplane yourself you can also check out hosted solutions like [Upbound Cloud](https://www.upbound.io/cloud). 
+</details>
 
 <details><summary>On the Crossplane CLI</summary>
 
