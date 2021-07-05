@@ -1,16 +1,29 @@
 # Setup: Setting up Crossplane on Kubernetes.
 
+The goal in this part is to install the Crossplane Runtime and necessary tooling to get started:
+
+* A) Create a local Kubernetes cluster 
+* B) Install the Crossplane CLI
+* C) Install Crossplane Runtime
+
 ## Prerequisites
-* K8s basic knowlege
 
-## A) Create a local K8s cluster 
+You should bring basic Kubernetes and cloud provider knwowlege as we will use Crossplane to connect both. Also please make sure you have [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) and [Helm](https://helm.sh/docs/intro/install/) installed.
 
-TODO explain
+## A) Create a local Kubernetes cluster 
 
-Run:
+Our first step is to create a local Kubernetes cluster with kind:
+
+### Run:
 ```bash
 # Install a local https://kind.sigs.k8s.io cluster:
 $ kind create cluster --image kindest/node:v1.16.15 --wait 5m
+```
+
+### Check:
+```
+# List all local available cluster. Will be just one named "kind" at this point.
+$ kind get clusters
 
 # To delete the cluster later:
 # $ kind delete cluster
@@ -18,31 +31,31 @@ $ kind create cluster --image kindest/node:v1.16.15 --wait 5m
 
 ## B) Install the Crossplane CLI
 
-TODO explain
+The Crossplane CLI extends kubectl to install Crossplane packages like Providers or Configurations:
 
-Run:
+### Run:
 ```bash
-# Extend kubectl to install Crossplane packages like Providers:
+# Install the Crossplane CLI via shell script:
 $ curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
 ```
 
-Check:
+### Check:
 ```bash
-# Check that the Crossplane CLI:
+# Check that the Crossplane CLI got installed:
 $ kubectl crossplane -h
 ```
 
 ## C) Install Crossplane Runtime
 
-TODO explain
+In our last setup step we will install the Crossplane runtime into the cluster:
 
-Run:
+### Run:
 ```bash
 $ kubectl create namespace crossplane-system
 $ helm install crossplane --namespace crossplane-system crossplane-stable/crossplane --version 1.2.1
 ```
 
-Check:
+### Check:
 ```bash
 # Show the installed Helm chart:
 # (check for deployed status)
@@ -57,10 +70,16 @@ $ kubectl get all -n crossplane-system
 
 ## Next
 
-TODO
+After we have setup a Crossplane runtime we want to [Using Managed Resources from AWS](02a-managed-resources-aws.md): Connect Crossplane to manage AWS resources. 
 
 ## More Info
 
-- [https://crossplane.io/docs/v1.2/reference/install.html](https://crossplane.io/docs/v1.2/reference/install.html)
+### Creating a Clusters
+We just used kind as it is currently our favourite way to install Kubernetes cluster. Other install options like minikube or kubeadm or using an existing cluster that someone can provide. If you don't want to manage controlplane yourself you can also check out hosted solutions like [Upbound Cloud](https://www.upbound.io/cloud). 
+
+### On the Crossplane CLI
+See the [Install Reference](https://crossplane.io/docs/v1.2/reference/install.html) for more information.
+
+### On the Crossplane Runtime
 - TODO link to the several CRDs
 - CRDs in general [https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)

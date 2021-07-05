@@ -6,13 +6,13 @@
 
 A quick explanation about this step
 
-Run:
+### Run:
 ```bash
 # what the next line does
 $ command to copy
 ```
 
-Check: 
+### Check: 
 ```bash
 # a command to verify and further inspect the changes from above
 $ a check command top copy
@@ -28,5 +28,6 @@ Summary on what we achieved. Link to the logical next step.
 
 ## More Info
 
+### A topic for more Info
 Links to reference material 
 
