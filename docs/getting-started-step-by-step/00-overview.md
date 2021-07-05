@@ -14,23 +14,23 @@ We will use this condensed form throught the guide:
 
 ## TOC
 
-* 1.) Setup: Setting up Crossplane on Kubernetes.
-    * Create a local K8s Cluster
+* 1.) [Setup](01-setup.md): Setting up Crossplane on Kubernetes.
+    * Create a K8s Cluster
     * Install the Crossplane CLI
     * Install the Crossplane Runtime
-* 2a.) Using Managed Resources from AWS: Connect Crossplane to manage AWS resources.
+* 2a.) [Using Managed Resources from AWS](02a-managed-resources-aws.md): Connect Crossplane to manage AWS resources.
     * Install the AWS Provider 
     * Configure the AWS Provider
-    * Create, Read, Update and Delete into an S3 bucket
+    * Create, Read, Update and Delete a S3 bucket
 * 2b.) Using Managed Resources from GCP: Connect Crossplane to manage GCP resources.
     * Install the GCP Provider 
     * Configure the GCP Provider
-    * Create, Read, Update and Delete into an Cloud Storage bucket
+    * Create, Read, Update and Delete a Cloud Storage bucket
 * 3.) Building a Composite Resource: Build and use simplified and catered infrastructure APIs.
     * Create a CompositeResourceDefinition (XRD)
     * Create a CompositeResource (XR) which implements the XRD
     * Provision Infrastructure by Claiming it
     * Use the Provisioned Bucket 
-* 4.) Package a Configuration Package
+* 4.) Build a Configuration Package
     * Bundle XRD and XR
     * Build and publish the configuration
