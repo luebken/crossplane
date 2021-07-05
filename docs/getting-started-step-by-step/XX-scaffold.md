@@ -1,6 +1,10 @@
 # Title
 
-## Prerequisites
+<details><summary>Prerequisites</summary>
+Prerequisites the user should bring
+</details>
+
+## 
 
 ## A) First Step
 
@@ -27,7 +31,8 @@ $ a check command top copy
 Summary on what we achieved. Link to the logical next step.
 
 ## More Info
-
-### A topic for more Info
+<details><summary>A topic for more Info</summary>
 Links to reference material 
+</details>
+
 
