@@ -7,6 +7,7 @@ The goal in this part is to install the Crossplane Runtime and necessary tooling
 * C) Install Crossplane Runtime
 
 <details><summary>Prerequisites</summary>
+
 You should bring basic Kubernetes and cloud provider knwowlege as we will use Crossplane to connect both. Also please make sure you have [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) and [Helm](https://helm.sh/docs/intro/install/) installed.
 </details>
 
@@ -75,13 +76,16 @@ After we have setup a Crossplane runtime we want to [Using Managed Resources fro
 ## More Info
 
 <details><summary>Creating a Clusters</summary>
+
 We just used kind as it is currently our favourite way to install Kubernetes cluster. Other install options like minikube or kubeadm or using an existing cluster that someone can provide. If you don't want to manage controlplane yourself you can also check out hosted solutions like [Upbound Cloud](https://www.upbound.io/cloud). 
 
 <details><summary>On the Crossplane CLI</summary>
+
 See the [Install Reference](https://crossplane.io/docs/v1.2/reference/install.html) for more information.
 </details>
 
 <details><summary>On the Crossplane Runtime</summary>
+
 - TODO link to the several CRDs
 - CRDs in general [https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 </details>

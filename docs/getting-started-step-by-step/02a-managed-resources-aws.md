@@ -122,6 +122,7 @@ We have succesfully configured our first Provider and started using it directly.
 ## More Info
 
 <details><summary>About Providers</summary>
+
 - TODO link to other cloud provider
 - [https://cloud.upbound.io/registry/crossplane/provider-aws](https://cloud.upbound.io/registry/crossplane/provider-aws)
 - https://crossplane.io/docs/v1.2/getting-started/install-configure.html#get-aws-account-keyfile
@@ -129,5 +130,6 @@ We have succesfully configured our first Provider and started using it directly.
 </details>
 
 <details><summary>Reconciliation Loops</summary>
+
 - TODO expain more about the power of the reconcilation loop
 </details>

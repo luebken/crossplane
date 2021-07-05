@@ -1,6 +1,7 @@
 # Title
 
 <details><summary>Prerequisites</summary>
+
 Prerequisites the user should bring
 </details>
 
@@ -32,6 +33,7 @@ Summary on what we achieved. Link to the logical next step.
 
 ## More Info
 <details><summary>A topic for more Info</summary>
+
 Links to reference material 
 </details>
 
