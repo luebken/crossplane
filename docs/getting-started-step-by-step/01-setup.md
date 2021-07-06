@@ -2,18 +2,18 @@
 
 The goal in this part is to install the Crossplane Runtime and necessary tooling to get started:
 
-* A) Create a local Kubernetes cluster 
+* A) Access a Kubernetes cluster 
 * B) Install the Crossplane CLI
 * C) Install Crossplane Runtime
 
 <details><summary>Prerequisites</summary>
 
-You should bring basic Kubernetes and cloud provider knwowlege as we will use Crossplane to connect both. Also please make sure you have [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) and [Helm](https://helm.sh/docs/intro/install/) installed.
+You should bring basic Kubernetes and cloud provider knwowlege as we will use Crossplane to connect both. Also please make sure you have [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) and [Helm](https://helm.sh/docs/intro/install/) installed. If you don't have access to a Kubernetes cluster we recommend [kind](https://kind.sigs.k8s.io/docs/user/quick-start#installation) for setting up a local cluster.
 </details>
 
-## A) Create a local Kubernetes cluster 
+## A) Access a Kubernetes cluster
 
-Our first step is to create a local Kubernetes cluster with kind:
+Crossplane runs on any Kubernetes cluster you'd like. If you do not have one handy, feel free to create a local cluster:
 
 ### Run:
 ```bash

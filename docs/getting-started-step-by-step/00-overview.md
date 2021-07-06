@@ -19,7 +19,7 @@ We will use this condensed form throughout the guide:
 The guide consists of 4 parts with individual steps:
 
 * 1.) [Setup](01-setup.md): Setting up Crossplane on Kubernetes.
-    * Create a K8s Cluster
+    * Access a Kubernetes cluster
     * Install the Crossplane CLI
     * Install the Crossplane Runtime
 * 2a.) [Using Managed Resources from AWS](02a-managed-resources-aws.md): Connect Crossplane to manage AWS resources.
