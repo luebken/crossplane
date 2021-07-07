@@ -6,7 +6,7 @@ Getting Started guide, which focuses on getting an RDS Instance up and running
 quickly. In this example will use Object Storage as a simple example with quick
 turn around times.
 
-In this guide we are going to all important aspects of Crossplane: Managed
+In this guide we are going to cover all important aspects of Crossplane: Managed
 Resources, Provider, ProviderConfigs, Compositions, CompositeResourceDefinitions
 (XRD), CompositeResources (XR), Claims and Configurations. 
 
