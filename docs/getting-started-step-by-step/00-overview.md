@@ -10,7 +10,7 @@ In this guide we are going to cover all important aspects of Crossplane: Managed
 Resources, Provider, ProviderConfigs, Compositions, CompositeResourceDefinitions
 (XRD), CompositeResources (XR), Claims and Configurations. 
 
-Here is the full architectural overview: 
+Here is an architectural overview: 
 
 ![architecture-overview](00-architecture-overview.jpg)
 
