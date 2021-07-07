@@ -86,7 +86,7 @@ resources.
 
 ## More Info
 
-<details><summary>Creating a Clusters</summary>
+<details><summary>Creating a Cluster</summary>
 
 We just used kind as it is currently our favourite way to install Kubernetes
 cluster. Other install options like minikube or kubeadm or using an existing
