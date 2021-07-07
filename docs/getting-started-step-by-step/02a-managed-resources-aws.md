@@ -1,6 +1,9 @@
 # Using Managed Resources from AWS: Connect Crossplane to manage AWS resources.
 
-In this part, our goal is to configure Crossplane so we can launch and manage AWS resources directly from within Kubernetes. We will leverage the power of the Kubernetes machinery that continuously reconciles the desired state without any manual interaction from users.  
+In this part, our goal is to configure Crossplane so we can launch and manage
+AWS resources directly from within Kubernetes. We will leverage the power of the
+Kubernetes machinery that continuously reconciles the desired state without any
+manual interaction from users.  
 
 ![architecture-s3-bucket](architecture-s3-bucket.jpg)
 
@@ -10,11 +13,13 @@ In this part, our goal is to configure Crossplane so we can launch and manage AW
 
 ## Prerequisite
 
-A running Kubernetes cluster & Crossplane runtime installed. See [01-setup.md](Setup). The [AWS CLI](https://aws.amazon.com/cli/) installed.
+A running Kubernetes cluster & Crossplane runtime installed. See
+[01-setup.md](Setup). The [AWS CLI](https://aws.amazon.com/cli/) installed.
 
 ## A) Install the AWS Provider
 
-Cloud provider resources are bundled into a Crossplane packages called Provider. We will install the AWS version v0.19:
+Cloud provider resources are bundled into a Crossplane packages called Provider.
+We will install the AWS version v0.19:
 
 ### Run:
 ```Bash:
@@ -22,7 +27,8 @@ Cloud provider resources are bundled into a Crossplane packages called Provider.
 $ kubectl crossplane install provider crossplane/provider-aws:v0.19
 ```
 
-This provider package installed a couple of AWS specific CRDS which we will be using.
+This provider package installed a couple of AWS specific CRDS which we will be
+using.
 
 ### Check:
 ```Bash:
@@ -41,7 +47,9 @@ $ kubectl get crds | grep aws.crossplane.io
 
 ## B) Configure the AWS Provider
 
-The Provider package from the previous step just contains the resources and needs to be configured. In this step we will install a ProviderConfig with a secret containing the AWS credentials:
+The Provider package from the previous step just contains the resources and
+needs to be configured. In this step we will install a ProviderConfig with a
+secret containing the AWS credentials:
 
 ### Run:
 ```bash
@@ -65,7 +73,8 @@ $ kubectl describe providerconfig
 
 ## C) Create, Update and Delete an S3 bucket
 
-In this last step we will be testing our AWS Provider by creating a S3 bucket, update it and delete it. 
+In this last step we will be testing our AWS Provider by creating a S3 bucket,
+update it and delete it. 
 
 ### Run:
 ```bash
