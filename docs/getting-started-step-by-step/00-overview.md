@@ -52,3 +52,7 @@ The guide consists of 4 parts with individual steps:
 
 Let's get it started with [Setup](01-setup.md): Setting up Crossplane on
 Kubernetes.
+
+## More Info
+
+- TODO something about Crossplane's approach to infrastructure - e.g. the separation of concerns and interactions between platform teams and app teams. 
