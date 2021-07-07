@@ -1,14 +1,15 @@
 # Overview Getting Started: Step-by-Step
 
-The following guide provides an easy, step-by-step path for developers and
-platform engineers to get familiar with Crossplane. It complements the current
-Getting Started guide, which focuses on getting an RDS Instance up and running
-quickly. In this example will use Object Storage as a simple example with quick
-turn around times.
+The following guide provides an easy, step-by-step path for Developers and
+Platform Engineers to get familiar with Crossplanes' approach to infrastructure
+and how it fulfills requirements from both parties. 
 
-In this guide we are going to cover all important aspects of Crossplane: Managed
-Resources, Provider, ProviderConfigs, Compositions, CompositeResourceDefinitions
-(XRD), CompositeResources (XR), Claims and Configurations. 
+This guide complements the current Getting Started guide, which focuses on
+getting an RDS Instance up and running quickly. This example will use Object
+Storage as an example with quick turnaround times to try things out. We are
+going to cover all important aspects of Crossplane: Managed Resources, Provider,
+ProviderConfigs, Compositions, CompositeResourceDefinitions (XRD),
+CompositeResources (XR), Claims and Configurations. 
 
 Here is an architectural overview: 
 
