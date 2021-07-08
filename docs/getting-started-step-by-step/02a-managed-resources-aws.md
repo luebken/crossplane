@@ -3,7 +3,11 @@
 In this part, our goal is to configure Crossplane so we can launch and manage
 AWS resources directly from within Kubernetes. We will leverage the power of the
 Kubernetes machinery that continuously reconciles the desired state without any
-manual interaction from users.  
+manual interaction from users.
+
+Please note that this is an intermediate step. The following step
+[TODO](Building a Composite Resource) will unveal the true value of composing
+these managed resources into a custom platform APIs.
 
 ![architecture-s3-bucket](architecture-s3-bucket.jpg)
 
