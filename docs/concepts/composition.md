@@ -7,26 +7,68 @@ indent: true
 
 # Composing Infrastructure
 
-## Composition
+## Overview
 
-Providers extend Crossplane with custom resources that can be used to
-declaratively configure a system. The AWS provider for example, adds custom
-resources for AWS services like RDS and S3. We call these 'managed resources'.
-Managed resources match the APIs of the system they represent as closely as
-possible, but they’re also opinionated. Common functionality like status
-conditions and references work the same no matter which provider you're using -
-all managed resources comply with the Crossplane Resource Model, or XRM. Despite
-the name, 'provider' doesn’t necessarily mean 'cloud provider'. The Crossplane
-community has built providers that add support for managing databases on a [SQL
+### Managed Resources
+
+Kubernetes includes the powerful concept of [Custom
+resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+which adds the capability of extending the Kubernetes with new - well custom
+resources. You can check your Kubernetes cluster with `kubectl get crds` to see
+what custom resource definitions this cluster knows about. 
+
+Crossplane comes with many custom resources specifically designed to manage
+cloud infrastructure services. These custom resources are packaged in Providers.
+The AWS provider, for example, adds custom resources for AWS services like RDS
+and S3. We call these ‘managed resources’. Managed resources match the APIs of
+the system they represent as closely as possible. 
+
+After for example installing the [AWS
+Provider](https://github.com/crossplane/provider-aws) your cluster will have
+many new CRDs:
+
+```console
+kubectl get crds
+NAME                                                       CREATED AT
+activities.sfn.aws.crossplane.io                           2021-08-09T14:32:48Z
+addresses.ec2.aws.crossplane.io                            2021-08-09T14:32:48Z
+apimappings.apigatewayv2.aws.crossplane.io                 2021-08-09T14:32:48Z
+apis.apigatewayv2.aws.crossplane.io                        2021-08-09T14:32:49Z
+applicationconfigurations.core.oam.dev                     2021-08-09T14:07:55Z
+authorizers.apigatewayv2.aws.crossplane.io                 2021-08-09T14:32:48Z
+backups.dynamodb.aws.crossplane.io                         2021-08-09T14:32:47Z
+bucketpolicies.s3.aws.crossplane.io                        2021-08-09T14:32:46Z
+buckets.s3.aws.crossplane.io                               2021-08-09T14:32:48Z
+...
+```
+
+<!-- Move to provider docs:
+Common functionality like status conditions and references work the same no 
+matter which provider you're using - all managed resources comply with the 
+Crossplane Resource Model, or XRM. -->
+
+Despite the name, 'provider' doesn’t necessarily mean 'cloud provider'. The Crossplane
+community has built providers that add support for managing [databases on a SQL
 server](https://github.com/crossplane-contrib/provider-sql), managing
 [Helm releases](https://github.com/crossplane-contrib/provider-helm/),
 and [ordering pizza](https://blog.crossplane.io/providers-101-ordering-pizza-with-kubernetes-and-crossplane/).
 
-Composition allows platform builders to define new custom resources that are
-composed of managed resources. We call these composite resources, or XRs. An XR
-typically groups together a handful of managed resources into one logical
-resource, exposing only the settings that the platform builer deems useful and
-deferring the rest to an API-server-side template we call a 'Composition'.
+> See also [Terminology - Managed
+> Resource](/concepts/terminology.html#managed-resource), [Terminology -
+> Provider](/concepts/terminology.html#provider) and [Managed Resources API
+> Patterns](https://github.com/>
+> crossplane/crossplane/blob/master/design/one-pager-managed-resource-api-design.md)
+
+### The Composition Resource Model
+Managed resources is a great way to get started with Crossplane and very useful
+in it's own rights. In addition Crossplane adds the concept of Compositions
+which work with the managed resources to compose cloud infrastructure and
+services into custom platform APIs.
+
+To specify these Compositions users define new custom resources called these
+Composite Resources, or XRs. An XR typically groups together a handful of
+managed resources into one logical resource, exposing only the settings that the
+platform builder deems useful.
 
 Composition can be used to build a catalogue of custom resources and classes of
 configuration that fit the needs and opinions of your organisation. A platform
@@ -38,6 +80,8 @@ selectable composition representing a configuration class like "production" or
 "staging". Compositions can hide infrastructure complexity and include policy
 guardrails so that applications can easily and safely consume the infrastructure
 they need, while conforming to your organisational best-practices.
+
+> See also [Terminolgy - Compositions](/concepts/terminology.html#composition)
 
 ## Concepts
 
