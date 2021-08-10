@@ -282,19 +282,23 @@ spec:
                   type: string
   ```
 
-See [full-xrd.yaml] for an example with all the options included.
+See [full-xrd.yaml](full-xrd.yaml) for an example with all the options included.
 
+<!-- TODO describe the status -->
 #### Working with XRDs
 
-`kubectl create -f my-xrd.yaml` to create your new XRD
-
-`kubectl get xrds` to list all XRDs
-
-`kubectl describe` can be used to confirm that a new composite
-resource was successfully defined. Note the `Established` condition and events,
-which indicate the process was successful.
-
 ```console
+# Create your new XRD
+$ kubectl create -f my-xrd.yaml
+compositeresourcedefinition.apiextensions.crossplane.io/compositemysqlinstances.example.org created
+
+# List all available XRDs.
+$ kubectl get xrds
+NAME                                  ESTABLISHED   OFFERED   AGE
+compositemysqlinstances.example.org   True          True      49m
+
+# Inspect the details with desribe. 
+# Note the `Established` condition and events which indicate the process was successful.
 $ kubectl describe xrd compositemysqlinstances.example.org
 
 Name:         compositemysqlinstances.example.org
@@ -312,93 +316,6 @@ Metadata:
   Resource Version:  1418120
   UID:               f8fedfaf-4dfd-4b8a-8228-6af0f4abd7a0
 Spec:
-  Connection Secret Keys:
-    username
-    password
-    hostname
-    port
-  Default Composition Ref:
-    Name: example-azure
-  Group:  example.org
-  Names:
-    Kind:       CompositeMySQLInstance
-    List Kind:  CompositeMySQLInstanceList
-    Plural:     compositemysqlinstances
-    Singular:   compositemysqlinstance
-  Claim Names:
-    Kind:       MySQLInstance
-    List Kind:  MySQLInstanceList
-    Plural:     mysqlinstances
-    Singular:   mysqlinstance
-  Versions:
-    Name:          v1alpha1
-    Served:        true
-    Referenceable: true
-    Schema:
-      openAPIV3Schema:
-        Properties:
-          Spec:
-            Properties:
-              Parameters:
-                Properties:
-                  Location:
-                    Description:  Geographic location of this MySQL server.
-                    Type:         string
-                  Storage GB:
-                    Type:  integer
-                  Version:
-                    Description:  MySQL engine version
-                    Enum:
-                      5.6
-                      5.7
-                    Type:  string
-                Required:
-                  version
-                  storageGB
-                  location
-                Type:  object
-            Required:
-              parameters
-            Type:  object
-          Status:
-            Properties:
-              Address:
-                Description:  Address of this MySQL server.
-                Type:         string
-              Admin DSN:
-                Description:  DSN (Data Source Name) of the MySQL server.
-                Type:         string
-            Type:             object
-        Type:                 object
-Status:
-  Conditions:
-    Last Transition Time:  2020-05-15T05:30:45Z
-    Reason:                WatchingCompositeResource
-    Status:                True
-    Type:                  Established
-    Last Transition Time:  2020-05-15T05:30:45Z
-    Reason:                WatchingCompositeResourceClaim
-    Status:                True
-    Type:                  Offered
-  Controllers:
-    Composite Resource Claim Type:
-      API Version:  example.org/v1alpha1
-      Kind:         MySQLInstance
-    Composite Resource Type:
-      API Version:  example.org/v1alpha1
-      Kind:         CompositeMySQLInstance
-Events:
-  Type     Reason              Age                   From                                                             Message
-  ----     ------              ----                  ----                                                             -------
-  Normal   EstablishComposite  4m10s                 defined/compositeresourcedefinition.apiextensions.crossplane.io  waiting for composite resource CustomResourceDefinition to be established
-  Normal   OfferClaim          4m10s                 offered/compositeresourcedefinition.apiextensions.crossplane.io  waiting for composite resource claim CustomResourceDefinition to be established
-  Normal   ApplyClusterRoles   4m9s (x4 over 4m10s)  rbac/compositeresourcedefinition.apiextensions.crossplane.io     Applied RBAC ClusterRoles
-  Normal   RenderCRD           4m7s (x8 over 4m10s)  defined/compositeresourcedefinition.apiextensions.crossplane.io  Rendered composite resource CustomResourceDefinition
-  Normal   EstablishComposite  4m7s (x6 over 4m10s)  defined/compositeresourcedefinition.apiextensions.crossplane.io  Applied composite resource CustomResourceDefinition
-  Normal   EstablishComposite  4m7s (x5 over 4m10s)  defined/compositeresourcedefinition.apiextensions.crossplane.io  (Re)started composite resource controller
-  Normal   RenderCRD           4m7s (x6 over 4m10s)  offered/compositeresourcedefinition.apiextensions.crossplane.io  Rendered composite resource claim CustomResourceDefinition
-  Normal   OfferClaim          4m7s (x4 over 4m10s)  offered/compositeresourcedefinition.apiextensions.crossplane.io  Applied composite resource claim CustomResourceDefinition
-  Normal   OfferClaim          4m7s (x3 over 4m10s)  offered/compositeresourcedefinition.apiextensions.crossplane.io  (Re)started composite resource claim controller
 ```
 
 ### Specify How Your Resource May Be Composed
