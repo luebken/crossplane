@@ -283,6 +283,7 @@ Spec:
 ...
 ```
 
+<!-- TODO describe options by use-case -->
 #### More XRD options
 
 * `spec.defaultCompositionRef.name`: You can specify a default Composition
