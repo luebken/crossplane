@@ -13,7 +13,7 @@ indent: true
   * [Managed Resources](#managed-resources)
   * [Compositions](#compositions)
 * [Artefacts Overview](#artefacts-overview)
-* [Creating A New Kind of Composite Resource](creating-a-new-kind-of-composite-resource)
+* [Creating A New Kind of Composite Resource](#creating-a-new-kind-of-composite-resource)
   * [Define your Composite Resource](#define-your-composite-resource)
   * [Specify How Your Resource May Be Composed](#specify-how-your-resource-may-be-composed)
 * [Using Composite Resources](#using-composite-resources)
