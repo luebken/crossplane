@@ -141,15 +141,115 @@ corresponding `MySQLInstance` claim.
 
 ## Creating A New Kind of Composite Resource
 
-New kinds of composite resource are defined by a platform builder. There are
-two steps to this process:
+New kinds of composite resource are typically defined by a platform builder.
+There are two steps to this process:
 
-1. Define your composite resource, and optionally the claim it offers.
-1. Specify one or more possible ways your composite resource may be composed.
+1. [Define your composite resource](#define-your-composite-resource) by creating an XRD.
+2. [Specify How Your Resource May Be
+   Composed](#specify-how-your-resource-may-be-composed) by specifying one or
+   more Compositions.
 
 ### Define your Composite Resource
 
-Composite resources are defined by a `CompositeResourceDefinition`:
+#### A basic XRD
+Composite resources are defined by a `CompositeResourceDefinition` (XRD). Lets
+start with a basic XRD:
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: compositemysqlinstances.example.org
+spec:
+  connectionSecretKeys:
+  - username
+  - password
+  - hostname
+  - port
+  group: example.org
+  names:
+    kind: CompositeMySQLInstance
+    plural: compositemysqlinstances
+  claimNames:
+    kind: MySQLInstance
+    plural: mysqlinstances
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  version:
+                    description: MySQL engine version
+                    type: string
+                    enum: ["5.6", "5.7"]
+                  storageGB:
+                    type: integer
+                  location:
+                    description: Geographic location of this MySQL server.
+                    type: string
+                required:
+                - version
+                - storageGB
+                - location
+            required:
+            - parameters
+```
+
+* `metadata.name`: XRDs follow the constraints of CRD names. They must be named
+  <plural>.<group>, per the plural and group names configured by the
+  crdSpecTemplate below.
+
+* `spec.names`: The defined kind of the composite resource.
+
+<!-- TODO describe why this optional-->
+* `spec.claimNames`: The kind of claim this composite resource offers. Optional
+  omit the claim names if you don't wish to offer a claim for this composite
+  resource. Must be different from the composite resource's kind. The
+  established convention is for the claim kind to represent what the resource
+  is, conceptually. e.g. 'MySQLInstance', not `MySQLInstanceClaim`.
+
+* `spec.connectionSecretKeys`:  Composite resources may optionally expose a
+  connection secret - a Kubernetes Secret containing all of the details a pod
+  might need to connect to the resource. Resources that wish to expose a
+  connection secret must declare what keys they support. These keys form a
+  'contract' - any composition that intends to be compatible with this resource
+  must compose resources that supply these connection secret keys.
+
+* `spec.versions`: A composite resource may be served at multiple versions
+  simultaneously, but all versions must have identical schemas; Crossplane does
+  not yet support conversion between different version schemas.
+
+* `spec.versions.served`: Served specifies whether this version should be
+  exposed via the API server's REST API.
+
+* `spec.versions.referencable`: Referenceable specifies whether this version may
+  be referenced by a Composition. Exactly one version may be referenceable by
+  Compositions, and that version must be served. The referenceable version will
+  always be the storage version of the underlying CRD.
+
+* `spec.versions.schema`: This schema defines the configuration fields that the
+  composite resource supports. It uses the same structural OpenAPI schema as a
+  Kubernetes CRD - for example, this resource supports a spec.parameters.version
+  enum. The following fields are reserved for Crossplane's use, and will be
+  overwritten if included in this validation schema:
+    - `spec.resourceRef`
+    - `spec.resourceRefs`
+    - `spec.claimRef`
+    - `spec.writeConnectionSecretToRef`
+    - `status.conditions`
+    - `status.connectionDetails`
+  In this example we ...
+
+> See also [API Docs](https://doc.crds.dev/github.com/crossplane/crossplane)
 
 ```yaml
 apiVersion: apiextensions.crossplane.io/v1
