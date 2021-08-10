@@ -248,6 +248,40 @@ spec:
 
 > See also [API Docs](https://doc.crds.dev/github.com/crossplane/crossplane)
 
+<!-- TODO describe the status -->
+#### Working with XRDs
+
+```console
+# Create your new XRD.
+kubectl create -f my-xrd.yaml
+compositeresourcedefinition.apiextensions.crossplane.io/compositemysqlinstances.example.org created
+
+# List all available XRDs.
+kubectl get xrds
+NAME                                  ESTABLISHED   OFFERED   AGE
+compositemysqlinstances.example.org   True          True      49m
+
+# Inspect the details with describe. 
+# Note the `Established` condition and events which indicate the process was successful.
+kubectl describe xrd compositemysqlinstances.example.org
+
+Name:         compositemysqlinstances.example.org
+Namespace:
+Labels:       <none>
+Annotations:  <none>
+API Version:  apiextensions.crossplane.io/v1
+Kind:         CompositeResourceDefinition
+Metadata:
+  Creation Timestamp:  2020-05-15T05:30:44Z
+  Finalizers:
+    offered.apiextensions.crossplane.io
+    defined.apiextensions.crossplane.io
+  Generation:        1
+  Resource Version:  1418120
+  UID:               f8fedfaf-4dfd-4b8a-8228-6af0f4abd7a0
+Spec:
+...
+```
 
 #### More XRD options
 
@@ -283,40 +317,6 @@ spec:
   ```
 
 See [full-xrd.yaml](full-xrd.yaml) for an example with all the options included.
-
-<!-- TODO describe the status -->
-#### Working with XRDs
-
-```console
-# Create your new XRD
-kubectl create -f my-xrd.yaml
-compositeresourcedefinition.apiextensions.crossplane.io/compositemysqlinstances.example.org created
-
-# List all available XRDs.
-kubectl get xrds
-NAME                                  ESTABLISHED   OFFERED   AGE
-compositemysqlinstances.example.org   True          True      49m
-
-# Inspect the details with desribe. 
-# Note the `Established` condition and events which indicate the process was successful.
-kubectl describe xrd compositemysqlinstances.example.org
-
-Name:         compositemysqlinstances.example.org
-Namespace:
-Labels:       <none>
-Annotations:  <none>
-API Version:  apiextensions.crossplane.io/v1
-Kind:         CompositeResourceDefinition
-Metadata:
-  Creation Timestamp:  2020-05-15T05:30:44Z
-  Finalizers:
-    offered.apiextensions.crossplane.io
-    defined.apiextensions.crossplane.io
-  Generation:        1
-  Resource Version:  1418120
-  UID:               f8fedfaf-4dfd-4b8a-8228-6af0f4abd7a0
-Spec:
-```
 
 ### Specify How Your Resource May Be Composed
 
