@@ -1033,7 +1033,7 @@ known issues and proposed improvements.
 
 [Current Limitations]: #current-limitations
 [Infrastructure Composition Concepts]: composition-concepts.png
-[Artifacts]: artifacts.png
+[Artifacts]: artifacts2.png
 [structural schemas]: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#specifying-a-structural-schema
 [Infrastructure Composition Provisioning]: composition-provisioning.png
 [composition related issues]: https://github.com/crossplane/crossplane/labels/composition
