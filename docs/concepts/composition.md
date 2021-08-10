@@ -7,7 +7,20 @@ indent: true
 
 # Composing Infrastructure
 
-## Overview
+## TOC
+
+* [Intro](#intro)
+  * [Managed Resources](#managed-resources)
+  * [Compositions](#compositions)
+* [Artefacts Overview](#artefacts-overview)
+* [Creating A New Kind of Composite Resource](creating-a-new-kind-of-composite-resource)
+  * [Define your Composite Resource](#define-your-composite-resource)
+  * [Specify How Your Resource May Be Composed](#specify-how-your-resource-may-be-composed)
+* [Using Composite Resources](#using-composite-resources)
+  * [Creating and Managing Composite Resources](#creating-and-managing-composite-resources)
+  * [Creating a Composite Resource Claim](#creating-a-composite-resource-claim)
+
+## Intro
 
 ### Managed Resources
 
@@ -58,7 +71,7 @@ and [ordering pizza](https://blog.crossplane.io/providers-101-ordering-pizza-wit
 > * [Terminology - Provider](/concepts/terminology.html#provider) and 
 > * [Managed Resources API Patterns](https://github.com/crossplane/crossplane/blob/master/design/one-pager-managed-resource-api-design.md)
 
-### The Composition Resource Model
+### Compositions
 Managed resources is a great way to get started with Crossplane and very useful
 in it's own rights. In addition Crossplane adds the concept of 'Compositions'
 which work with the managed resources to compose cloud infrastructure and
@@ -83,39 +96,48 @@ they need, while conforming to your organisational best-practices.
 > See also 
 > * [Terminolgy - Compositions](/concepts/terminology.html#composition)
 
-## Concepts
+## Artefacts Overview
 
-![Infrastructure Composition Concepts]
+Here is an overview of the artefacts that are involved creating and using a
+Composition: 
 
-A _Composite Resource_ (XR) is a special kind of custom resource that is
-composed of other resources. Its schema is user-defined. The
-`CompositeMySQLInstance` in the above diagram is a composite resource. The kind
+![Artifacts]
+
+<!-- TODO think about changing the order -->
+1) A _Composite Resource_ (XR) is a special kind of custom resource that is
+composed of other resources. Its schema defined by the user. The
+`CompositeMySQLInstance` in the above diagram is a composite resource. 
+<!-- 
+The kind
 of a composite resource is configurable - the `Composite` prefix is not
 required.
+-->
 
-A `Composition` specifies how Crossplane should reconcile a composite
+2) A `Composition` specifies how Crossplane should reconcile a composite
 infrastructure resource - i.e. what infrastructure resources it should compose.
 For example the Azure `Composition` configures Crossplane to reconcile a
 `CompositeMySQLInstance` by creating and managing the lifecycle of an Azure
 `MySQLServer` and `MySQLServerFirewallRule`.
 
-A _Composite Resource Claim_ (XRC) for an resource declares that an application
+3) A _Composite Resource Claim_ (XRC) for an resource declares that an application
 requires particular kind of infrastructure, as well as specifying how to
 configure it. The `MySQLInstance` resources in the above diagram declare that
 the application pods each require a `CompositeMySQLInstance`. As with composite
 resources, the kind of the claim is configurable. Offering a claim is optional.
 
-A `CompositeResourceDefinition` (XRD) defines a new kind of composite resource,
+4) A `CompositeResourceDefinition` (XRD) defines a new kind of composite resource,
 and optionally the claim it offers. The `CompositeResourceDefinition` in the
 above diagram defines the `CompositeMySQLInstance` composite resource, and its
 corresponding `MySQLInstance` claim.
 
+<!-- TOOD move somewhere
 > Note that composite resources and compositions are _cluster scoped_ - they
 > exist outside of any Kubernetes namespace. A claim is a namespaced proxy for a
 > composite resource. This enables Crossplane to model complex relationships
 > between XRs that may span namespace boundaries - for example MySQLInstances
 > spread across multiple namespaces can all share a VPC that exists above any
 > namespace.
+-->
 
 ## Creating A New Kind of Composite Resource
 
@@ -1011,6 +1033,7 @@ known issues and proposed improvements.
 
 [Current Limitations]: #current-limitations
 [Infrastructure Composition Concepts]: composition-concepts.png
+[Artifacts]: artifacts.png
 [structural schemas]: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#specifying-a-structural-schema
 [Infrastructure Composition Provisioning]: composition-provisioning.png
 [composition related issues]: https://github.com/crossplane/crossplane/labels/composition
