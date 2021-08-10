@@ -13,19 +13,19 @@ indent: true
 
 Kubernetes includes the powerful concept of [Custom
 resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
-which adds the capability of extending the Kubernetes with new - well custom
-resources. You can check your Kubernetes cluster with `kubectl get crds` to see
-what custom resource definitions this cluster knows about. 
+which let users extend the Kubernetes. You can check your Kubernetes cluster
+with `kubectl get crds` to see what custom resource definitions this cluster
+knows about. 
 
 Crossplane comes with many custom resources specifically designed to manage
 cloud infrastructure services. These custom resources are packaged in Providers.
 The AWS provider, for example, adds custom resources for AWS services like RDS
-and S3. We call these ‘managed resources’. Managed resources match the APIs of
+and S3. We call these 'managed resources'. Managed resources match the APIs of
 the system they represent as closely as possible. 
 
-After for example installing the [AWS
+For example after installing the [AWS
 Provider](https://github.com/crossplane/provider-aws) your cluster will have
-many new CRDs:
+many new AWS CRDs:
 
 ```console
 kubectl get crds
@@ -53,19 +53,18 @@ server](https://github.com/crossplane-contrib/provider-sql), managing
 [Helm releases](https://github.com/crossplane-contrib/provider-helm/),
 and [ordering pizza](https://blog.crossplane.io/providers-101-ordering-pizza-with-kubernetes-and-crossplane/).
 
-> See also [Terminology - Managed
-> Resource](/concepts/terminology.html#managed-resource), [Terminology -
-> Provider](/concepts/terminology.html#provider) and [Managed Resources API
-> Patterns](https://github.com/>
-> crossplane/crossplane/blob/master/design/one-pager-managed-resource-api-design.md)
+> See also 
+> * [Terminology - Managed Resource](/concepts/terminology.html#managed-resource)
+> * [Terminology - Provider](/concepts/terminology.html#provider) and 
+> * [Managed Resources API Patterns](https://github.com/crossplane/crossplane/blob/master/design/one-pager-managed-resource-api-design.md)
 
 ### The Composition Resource Model
 Managed resources is a great way to get started with Crossplane and very useful
-in it's own rights. In addition Crossplane adds the concept of Compositions
+in it's own rights. In addition Crossplane adds the concept of 'Compositions'
 which work with the managed resources to compose cloud infrastructure and
 services into custom platform APIs.
 
-To specify these Compositions users define new custom resources called these
+To specify these Compositions users define new type of custom resources called
 Composite Resources, or XRs. An XR typically groups together a handful of
 managed resources into one logical resource, exposing only the settings that the
 platform builder deems useful.
@@ -81,7 +80,8 @@ selectable composition representing a configuration class like "production" or
 guardrails so that applications can easily and safely consume the infrastructure
 they need, while conforming to your organisational best-practices.
 
-> See also [Terminolgy - Compositions](/concepts/terminology.html#composition)
+> See also 
+> * [Terminolgy - Compositions](/concepts/terminology.html#composition)
 
 ## Concepts
 
