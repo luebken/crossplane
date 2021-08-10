@@ -289,17 +289,17 @@ See [full-xrd.yaml](full-xrd.yaml) for an example with all the options included.
 
 ```console
 # Create your new XRD
-$ kubectl create -f my-xrd.yaml
+kubectl create -f my-xrd.yaml
 compositeresourcedefinition.apiextensions.crossplane.io/compositemysqlinstances.example.org created
 
 # List all available XRDs.
-$ kubectl get xrds
+kubectl get xrds
 NAME                                  ESTABLISHED   OFFERED   AGE
 compositemysqlinstances.example.org   True          True      49m
 
 # Inspect the details with desribe. 
 # Note the `Established` condition and events which indicate the process was successful.
-$ kubectl describe xrd compositemysqlinstances.example.org
+kubectl describe xrd compositemysqlinstances.example.org
 
 Name:         compositemysqlinstances.example.org
 Namespace:
