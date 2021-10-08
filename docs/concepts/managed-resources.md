@@ -26,7 +26,11 @@ _composed_ into higher level, opinionated Custom Resources that Crossplane calls
 Composite Resources or XRs - not used directly. See the
 [Composition][composition] documentation for more information.
 
-## Syntax
+This document describes the concepts for working with Managed Resources. For a
+more in-depth discussion see the Design doc 
+[Managed Resources API Patterns][mr-api-patterns].
+
+## Create, Update, Delete and List
 
 Crossplane API conventions extend the Kubernetes API conventions for the schema
 of Crossplane managed resources. Following is an example of a managed resource:
@@ -80,6 +84,13 @@ can take a look at its connection secret that is referenced under `spec.writeCon
 kubectl describe secret aws-rdspostgresql-conn -n crossplane-system
 ```
 
+You can list all `RDSInstance` or all managed resources with: 
+
+```console
+kubectl get rdsinstance
+kubectl get managed
+```
+
 You can then delete the `RDSInstance`:
 
 ```console
@@ -126,6 +137,13 @@ can take a look at its connection secret that is referenced under `spec.writeCon
 
 ```console
 kubectl describe secret cloudsqlpostgresql-conn -n crossplane-system
+```
+
+You can list all `CloudSQLInstance` or all managed resources with: 
+
+```console
+kubectl get cloudsqlinstance
+kubectl get managed
 ```
 
 You can then delete the `CloudSQLInstance`:
@@ -195,6 +213,13 @@ can take a look at its connection secret that is referenced under `spec.writeCon
 kubectl describe secret sqlserverpostgresql-conn -n crossplane-system
 ```
 
+You can list all `PostgreSQLServer` or all managed resources with: 
+
+```console
+kubectl get postgresqlserver
+kubectl get managed
+```
+
 You can then delete the `PostgreSQLServer`:
 
 ```console
@@ -205,6 +230,7 @@ kubectl delete resourcegroup sqlserverpostgresql-rg
 </div>
 </div>
 
+### Spec
 In Kubernetes, `spec` top field represents the desired state of the user.
 Crossplane adheres to that and has its own conventions about how the fields
 under `spec` should look like.
@@ -233,13 +259,42 @@ under `spec` should look like.
   API. For example, GCP `ServiceAccount` has only a few fields while GCP
   `CloudSQLInstance` has over 100 fields that you can configure.
 
+### Status
+
+In Kubernetes, `status` top field represents the current status of the object.
+Crossplane adheres to that and adds a `status.atProvider` element representing
+status information from the external system e.g. in AWS the ARN of the resource.
+
+When inspecting Managed Resources we always start by inspecting their `READY`
+and `SYNCED` status, which are shown when a user lists a managed resource:
+
+```
+kubectl get bucket.s3.aws.crossplane.io/test-bucket-123
+NAME              READY   SYNCED   AGE
+test-bucket-123   True    True     177m
+```
+
+`SYNCED` can be True or False and describes wether the Crossplane runtime was
+able to sync with the external system. A typical failure scenario is that it
+can't connect the external system because of missing or wrong credentials.
+
+`READY` can be True or False and describes wether the resource is ready to be
+used. This depends on the external resource itself and all it's
+[dependencies][#dependencies]. E.g. a database needs to be fully initialized.
+
+For more information on the status use `kubectl describe
+<your-managed-<resource>`.
+
 ### Versioning
 
 Crossplane closely follows the [Kubernetes API versioning
-conventions][api-versioning] for the CRDs that it deploys. In short, for
-`vXbeta` and `vX` versions, you can expect that either automatic migration or
-instructions for manual migration will be provided when a new version of that
-CRD schema is released.
+conventions][api-versioning] for the CRDs that it deploys. We usually keep a
+resource for at least 1 or 2 release in an `alpha` stage to gain some real life
+experience from the community. A `vXbeta` version will have all fields of the
+external resrouce available and have all capabilites needed to be fully XRM
+compatible. For `vXbeta` and `vX` versions, you can expect that either automatic
+migration or instructions for manual migration will be provided when a new
+version of that CRD schema is released. 
 
 ### Grouping
 
@@ -445,3 +500,4 @@ including Velero.
 [provider]: providers.md
 [issue-727]: https://github.com/crossplane/crossplane/issues/727
 [issue-1143]: https://github.com/crossplane/crossplane/issues/1143
+[mr-api-patterns]: https://github.com/crossplane/crossplane/blob/master/design/one-pager-managed-resource-api-design.md
