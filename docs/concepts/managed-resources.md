@@ -263,10 +263,12 @@ under `spec` should look like.
 
 In Kubernetes, `status` top field represents the current status of the object.
 Crossplane adheres to that and adds a `status.atProvider` element representing
-status information from the external system e.g. in AWS the ARN of the resource.
+status information from the external system e.g. in AWS the ARN of the resource
+and for the RDS instance detailed information around the DB instance like
+Subnets etc. 
 
-When inspecting Managed Resources we always start by inspecting their `READY`
-and `SYNCED` status, which are shown when a user lists a managed resource:
+When listing a Managed Resource you will see `READY` and `SYNCED` status and
+some addtionial information depending on the managed resource: 
 
 ```
 kubectl get bucket.s3.aws.crossplane.io/test-bucket-123
@@ -282,8 +284,28 @@ can't connect the external system because of missing or wrong credentials.
 used. This depends on the external resource itself and all it's
 [dependencies][#dependencies]. E.g. a database needs to be fully initialized.
 
-For more information on the status use `kubectl describe
-<your-managed-<resource>`.
+Resources may add additional columns: 
+
+```
+kubectl get rdsinstance.database.aws.crossplane.io
+NAME            READY   SYNCED   STATE       ENGINE     VERSION   AGE
+rdspostgresql   True    True     available   postgres   12.7      58m
+```
+
+To learn more about the origin of these check the `additionalPrinterColumns` of
+the Manged Resource definition. E.g. for `rdsinstances`:
+
+```
+kubectl get crds rdsinstances.database.aws.crossplane.io -o json | jq .spec.versions[0].additionalPrinterColumns[]
+```
+
+For more indepth information on the managed resource including all conditions,
+status information from the external system and any events use the normal
+Kubernetes `describe` command: 
+
+```
+kubectl describe rdsinstance.database.aws.crossplane.io rdspostgresql
+```
 
 ### Versioning
 
