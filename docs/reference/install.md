@@ -47,7 +47,7 @@ crossplane-rbac-manager-dd8d65f77-h2nd4   1/1     Running   0          24m
 
 The Crossplane pod is the core of Crossplane and among other things adds the
 notion of XRDs, Compositions, Configurations and Providers and is responsible
-for these. You can check the CRDs in your cluster with: 
+for managing these. You can check the CRDs in your cluster with: 
 
 ```console
 kubectl get crds | grep crossplane.io
