@@ -35,6 +35,41 @@ helm repo update
 helm install crossplane --namespace crossplane-system crossplane-stable/crossplane
 ```
 
+This will install two deployments `crossplane` and `crossplane-rbac-manager`.
+After the helm install you can inspect them in your cluster: 
+
+```console
+kubectl get pod -n crossplane-system
+NAME                                      READY   STATUS    RESTARTS   AGE
+crossplane-6f974db97-ggjfj                1/1     Running   0          24m
+crossplane-rbac-manager-dd8d65f77-h2nd4   1/1     Running   0          24m
+```
+
+The Crossplane pod is the core of Crossplane and among other things adds the
+notion of XRDs, Compositions, Configurations and Providers and is responsible
+for these. You can check the CRDs in your cluster with: 
+
+```console
+kubectl get crds | grep crossplane.io
+compositeresourcedefinitions.apiextensions.crossplane.io   2021-10-29T09:09:05Z
+compositionrevisions.apiextensions.crossplane.io           2021-10-29T09:09:05Z
+compositions.apiextensions.crossplane.io                   2021-10-29T09:09:05Z
+configurationrevisions.pkg.crossplane.io                   2021-10-29T09:09:05Z
+configurations.pkg.crossplane.io                           2021-10-29T09:09:05Z
+controllerconfigs.pkg.crossplane.io                        2021-10-29T09:09:05Z
+locks.pkg.crossplane.io                                    2021-10-29T09:09:05Z
+providerrevisions.pkg.crossplane.io                        2021-10-29T09:09:05Z
+providers.pkg.crossplane.io                                2021-10-29T09:09:05Z
+```
+
+The Crossplane RBAC Manager pod is a convenient way for creating and binding the
+RBAC roles Crossplane and its users will need. Alternatively operators would
+need to manually create and bind RBAC roles for each provider, its managed
+resources and the composite resources. Read more about it in the 
+[Crossplane RBAC Manager Design Doc][rbac-design-doc].
+
+
+
 ### Master
 
 The `master` channel contains the latest commits, with all automated tests
@@ -160,3 +195,4 @@ imagePullSecrets:
 [Kubernetes cluster]: https://kubernetes.io/docs/setup/
 [Minikube]: https://kubernetes.io/docs/tasks/tools/install-minikube/
 [Helm]: https://docs.helm.sh/using_helm/
+[rbac-design-doc]: https://github.com/crossplane/crossplane/blob/master/design/design-doc-rbac-manager.md
