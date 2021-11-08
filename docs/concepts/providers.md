@@ -72,8 +72,9 @@ There are a few other ways to to trigger the installation of provider packages:
 * Using the Crossplane CLI: `kubectl crossplane install provider
   crossplane/provider-aws:master`
 
-You can uninstall a provider by deleting the `Provider` resource
-you've created.
+You can uninstall a provider by deleting the `Provider` resource you've created.
+Note that Providers are `Packages`. See [Crossplane Packages][packages] for more
+context and options of managing them.
 
 ## Configuring Providers
 
@@ -140,3 +141,4 @@ will attempt to use a `ProviderConfig` named `default`.
 [Google Cloud Platform (GCP) Service Account]: ../cloud-providers/gcp/gcp-provider.md
 [Microsoft Azure Service Principal]: ../cloud-providers/azure/azure-provider.md
 [Amazon Web Services (AWS) IAM User]: ../cloud-providers/aws/aws-provider.md
+[packages]: ./packages.md
