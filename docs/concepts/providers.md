@@ -125,6 +125,28 @@ you can have multiple `ProviderConfig` resources in your cluster referenced by
 different resources. When no `providerConfigRef` is specified, the `RDSInstance`
 will attempt to use a `ProviderConfig` named `default`.
 
+## Updating Providers
+
+Updating a provider is as simple as 
+
+The CR is connected to the CRD by the KVG it uses.
+
+
+https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/
+https://github.com/crossplane/provider-gcp/pull/365
+
+https://book.kubebuilder.io/cronjob-tutorial/gvks.html
+
+
+* Version bump => 
+
+* one can be active at a given time.
+* For each provider there always exisits an active Active Revision => Deployment
+* 
+https://crossplane.io/docs/v1.5/concepts/packages.html#specrevisionactivationpolicy
+https://github.com/crossplane/crossplane/blob/master/design/design-doc-packages-v2.md#simple-case-package-upgrade-example
+
+
 <!-- Named Links -->
 
 [provider-aws]: https://github.com/crossplane/provider-aws
